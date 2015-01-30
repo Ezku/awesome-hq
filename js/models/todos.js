@@ -39,7 +39,8 @@ var TodosModel = Cycle.createModel(function (intent, initial) {
 
 	var addToQueueMod$ = intent.get('addToQueue$').map(function(name) {
 		return function (peopleData) {
-			peopleData.queue.push('name');
+			peopleData.queue.push(name);
+			return peopleData;
 		};
 	});
 
@@ -52,6 +53,7 @@ var TodosModel = Cycle.createModel(function (intent, initial) {
 				}
 			}
 			peopleData.queue = queue;
+			return peopleData;
 		};
 	});
 

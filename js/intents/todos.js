@@ -3,11 +3,11 @@
 
 var TodosIntent = Cycle.createIntent(function (view) {
 	return {
-		addToQueue$: view.get('addToQueue$').map(function(element) {
-			return element.getAttribute('data-name');
+		addToQueue$: view.get('addToQueue$').map(function(event) {
+			return event.target.dataset.name;
 		}),
-		removeFromQueue$: view.get('removeFromQueue$').map(function(element) {
-			return element.getAttribute('data-name');
+		removeFromQueue$: view.get('removeFromQueue$').map(function(event) {
+			return event.target.dataset.name;
 		})
 	}
 });

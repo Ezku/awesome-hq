@@ -13,9 +13,9 @@ function vrenderQueuedPerson(name) {
 	return h('div.view', [
 		h('label', {}, name),
 		h('button', {
-			'data-name': name,
+			attributes: {'data-name': name},
 			onclick: 'removeFromQueue$'
-		})
+		}, 'uliuli')
 	])
 }
 
@@ -23,9 +23,9 @@ function vrenderListPerson(name) {
 	return h('div.view', [
 		h('label', {}, name),
 		h('button', {
-			'data-name': name,
+			attributes: {'data-name': name},
 			onclick: 'addToQueue$'
-		})
+		}, 'uliuli')
 	])
 }
 
