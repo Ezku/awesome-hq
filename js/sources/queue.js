@@ -43,5 +43,5 @@ var storedQueueData = JSON.parse(localStorage.getItem('tqueue')) || {};
 var initialQueueData = merge(defaultQueueData, storedQueueData);
 
 var TodosModelSource = Cycle.createDataFlowSource({
-	todosData$: Rx.Observable.just(initialQueueData)
+	peopleData$: Rx.Observable.just(initialQueueData)
 });

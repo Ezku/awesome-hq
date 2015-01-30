@@ -36,114 +36,36 @@ function withLatest(A$, B$, combineFunc) {
 }
 
 var TodosModel = Cycle.createModel(function (intent, initial) {
-	var route$ = Rx.Observable.just('/').merge(intent.get('changeRoute$'));
 
-	var insertTodoMod$ = intent.get('insertTodo$')
-		.map(function (todoTitle) {
-			return function (todosData) {
-				todosData.list.push({
-					title: todoTitle,
-					completed: false,
-					editing: false
-				});
-				todosData.input = '';
-				return todosData;
-			};
-		});
+	var addToQueueMod$ = intent.get('addToQueue$').map(function(name) {
+		return function (peopleData) {
+			peopleData.queue.push('name');
+		};
+	});
 
-	var startEditTodoMod$ = intent.get('startEditTodo$')
-		.map(function (todoIndex) {
-			return function (todosData) {
-				todosData.list.forEach(function (todoData, index) {
-					todoData.editing = (index === todoIndex);
-				});
-				return todosData;
+	var removeFromQueueMod$ = intent.get('removeFromQueue$').map(function(name) {
+		return function (peopleData) {
+			var queue = [];
+			for (var i in peopleData.queue) {
+				if (peopleData.queue[i] !== name) {
+					queue.push(peopleData.queue[i]);
+				}
 			}
-		});
-
-	var editTodoMod$ = intent.get('editTodo$')
-		.map(function (modObject) {
-			return function (todosData) {
-				todosData.list[modObject.index].title = modObject.value;
-				return todosData;
-			};
-		});
-
-	var stopEditingMod$ = withLatest(intent.get('doneEditing$'), editTodoMod$,
-		function(d, editMod) {
-			return function (todosData) {
-				todosData.list.forEach(function (todoData) {
-					todoData.editing = false;
-				});
-				todosData.list = todosData.list.filter(function (todoData) {
-					return todoData.title.trim().length > 0;
-				});
-				return editMod(todosData);
-			};
-		});
-
-	var clearInputMod$ = intent.get('clearInput$')
-		.map(function () {
-			return function (todosData) {
-				todosData.input = '';
-				return todosData;
-			}
-		});
-
-	var toggleAllMod$ = intent.get('toggleAll$')
-		.map(function () {
-			return function (todosData) {
-				var allAreCompleted = todosData.list.reduce(function (x, y) {
-					return x && y.completed;
-				}, true);
-				todosData.list.forEach(function (todoData) {
-					todoData.completed = allAreCompleted ? false : true;
-				});
-				return todosData;
-			}
-		});
-
-	var toggleTodoMod$ = intent.get('toggleTodo$')
-		.map(function (todoIndex) {
-			return function (todosData) {
-				var previousCompleted = todosData.list[todoIndex].completed;
-				todosData.list[todoIndex].completed = !previousCompleted;
-				return todosData;
-			}
-		});
-
-	var deleteTodoMod$ = intent.get('deleteTodo$')
-		.map(function (todoIndex) {
-			return function (todosData) {
-				todosData.list.splice(todoIndex, 1);
-				return todosData;
-			}
-		});
-
-	var deleteCompletedsMod$ = intent.get('deleteCompleteds$')
-		.map(function () {
-			return function (todosData) {
-				todosData.list = todosData.list.filter(function (todoData) {
-					return todoData.completed === false;
-				});
-				return todosData
-			}
-		});
+			peopleData.queue = queue;
+		};
+	});
 
 	var modifications$ = Rx.Observable.merge(
-		insertTodoMod$, deleteTodoMod$, toggleTodoMod$, toggleAllMod$,
-		clearInputMod$, deleteCompletedsMod$, startEditTodoMod$,
-		stopEditingMod$
+		addToQueueMod$,
+		removeFromQueueMod$
 	);
 
 	return {
 		people$: modifications$
-			.merge(initial.get('todosData$'))
-			.scan(function (todosData, modification) {
-				return modification(todosData);
+			.merge(initial.get('peopleData$'))
+			.scan(function (data, modification) {
+				return modification(data);
 			})
-			.map(determineTodosIndexes)
-			.combineLatest(route$, determineFilter)
 			.publish().refCount()
 	}
 });
