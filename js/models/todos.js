@@ -137,7 +137,7 @@ var TodosModel = Cycle.createModel(function (intent, initial) {
 	);
 
 	return {
-		todos$: modifications$
+		people$: modifications$
 			.merge(initial.get('todosData$'))
 			.scan(function (todosData, modification) {
 				return modification(todosData);
