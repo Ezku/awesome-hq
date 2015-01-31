@@ -11,7 +11,7 @@ function withLatest(A$, B$, combineFunc) {
 		.switch();
 }
 
-var TodosModel = Cycle.createModel(function (intent, initial) {
+var QueueModel = Cycle.createModel(function (intent, initial) {
 
 	var addToQueueMod$ = intent.get('addToQueue$').map(function(name) {
 		return function (peopleData) {
