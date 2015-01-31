@@ -52,7 +52,7 @@ function vrenderQueue(people) {
 	])
 }
 
-var TodosView = Cycle.createView(function (model) {
+var QueueView = Cycle.createView(function (model) {
 	return {
 		vtree$: model.get('people$')
 			.map(function (todosData) {
