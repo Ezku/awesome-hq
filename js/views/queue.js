@@ -3,64 +3,62 @@
 
 var h = Cycle.h;
 
-function vrenderHeader(todosData) {
+function vrenderHeader(people) {
 	return h('header#header', [
 		h('h1', 'queue')
 	]);
 }
 
 function vrenderQueuedPerson(name) {
-	return h('div.view', [
-		h('label', {}, name),
+	return h('li', [
+		h('label', name),
 		h('button', {
 			attributes: {'data-name': name},
 			onclick: 'removeFromQueue$'
-		}, 'uliuli')
-	])
+		}, 'Remove')
+	]);
 }
 
 function vrenderListPerson(name) {
-	return h('div.view', [
-		h('label', {}, name),
+	return h('li', [
+		h('label', name),
 		h('button', {
 			attributes: {'data-name': name},
 			onclick: 'addToQueue$'
-		}, 'uliuli')
-	])
+		}, 'Add')
+	]);
 }
 
 function vrenderList(people) {
 	var unqueued = people.list.filter(function(person) {
 		return people.queue.indexOf(person) === -1
 	});
-	return h('section#main', {
-		style: {'display': unqueued.length ? '' : 'none'}
-	}, [
-		h('ul#todo-list', unqueued
-			.map(vrenderListPerson)
-		)
-	])
+	return h('ul#unqueued', {
+			style: {'display': unqueued.length ? '' : 'none'}
+		},
+		unqueued.map(vrenderListPerson)
+	);
 }
 
 function vrenderQueue(people) {
-	return h('section#main', {
-		style: {'display': people.queue.length ? '' : 'none'}
-	}, [
-		h('ul#todo-list', people.queue
-			.map(vrenderQueuedPerson)
-		)
-	])
+	return h('ul#queued', {
+			style: {'display': people.queue.length ? '' : 'none'}
+		},
+		people.queue.map(vrenderQueuedPerson)
+	);
 }
 
 var QueueView = Cycle.createView(function (model) {
 	return {
 		vtree$: model.get('people$')
-			.map(function (todosData) {
+			.map(function (people) {
 				return h('div', [
-					vrenderHeader(todosData),
-					vrenderList(todosData),
-					vrenderQueue(todosData)
-				])
+					vrenderHeader(people),
+					h('section#main', [
+						vrenderList(people),
+						vrenderQueue(people)
+					])
+				]);
 			})
 	}
 });
