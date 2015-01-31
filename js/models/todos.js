@@ -1,30 +1,6 @@
 'use strict';
 /*global Cycle */
 
-function getFilterFn(route) {
-	switch (route) {
-		case '/active':
-			return function (task) { return task.completed === false; };
-		case '/completed':
-			return function (task) { return task.completed === true; };
-		default:
-			return function () { return true; }; // allow anything
-	}
-}
-
-function determineTodosIndexes(todosData) {
-	todosData.list.forEach(function(todoData, index) {
-		todoData.index = index;
-	});
-	return todosData;
-}
-
-function determineFilter(todosData, route) {
-	todosData.filter = route.replace('/', '').trim();
-	todosData.filterFn = getFilterFn(route);
-	return todosData;
-}
-
 // Rx's missing golden operator
 function withLatest(A$, B$, combineFunc) {
 	var hotA$ = A$.publish().refCount();
