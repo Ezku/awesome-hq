@@ -38,7 +38,7 @@ var defaultQueueData = {
 	queue: []
 };
 
-var storedQueueData = JSON.parse(localStorage.getItem('tqueue')) || {};
+var storedQueueData = JSON.parse(localStorage.getItem('awesome-human-queue')) || {};
 
 var initialQueueData = merge(defaultQueueData, storedQueueData);
 
