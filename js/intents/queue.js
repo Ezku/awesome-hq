@@ -1,7 +1,7 @@
 'use strict';
 /*global Cycle */
 
-var TodosIntent = Cycle.createIntent(function (view) {
+var QueueIntent = Cycle.createIntent(function (view) {
 	return {
 		addToQueue$: view.get('addToQueue$').map(function(event) {
 			return event.target.dataset.name;
