@@ -1,0 +1,14 @@
+{
+  "name": "string_to_color",
+  "homepage": "https://github.com/brandoncorbin/string_to_color",
+  "_release": "f25446aa90",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "f25446aa90531d5a7c6db0165d9764d03829dca7"
+  },
+  "_source": "git://github.com/brandoncorbin/string_to_color.git",
+  "_target": "*",
+  "_originalSource": "brandoncorbin/string_to_color",
+  "_direct": true
+}
