@@ -7,6 +7,7 @@
     "skeleton": "~2.0.4",
     "string_to_color": "brandoncorbin/string_to_color",
     "color": "harthur/color#gh-pages",
-    "fontawesome": "~4.3.0"
+    "fontawesome": "~4.3.0",
+    "immutable": "~3.6.2"
   }
 }
