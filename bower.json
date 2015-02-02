@@ -6,6 +6,7 @@
     "todomvc-common": "~0.3.0",
     "skeleton": "~2.0.4",
     "string_to_color": "brandoncorbin/string_to_color",
-    "color": "harthur/color#gh-pages"
+    "color": "harthur/color#gh-pages",
+    "fontawesome": "~4.3.0"
   }
 }
