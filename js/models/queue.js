@@ -21,11 +21,16 @@ var QueueModel = Cycle.createModel(function (intent, initial) {
     };
   });
 
+  // Magic
+  var conjureWeightRating = function(name) {
+    return ~~(1/Math.log((name.charCodeAt(0) - 63) * name.length) * 1000);
+  };
+
   var incrementWeightMod$ = intent.get('addToQueue$').map(function(name) {
     return function (peopleData) {
       return peopleData.update('weights', function(weights) {
         return weights.update(name, 1, function(weight) {
-          return weight + 1;
+          return weight + conjureWeightRating(name);
         });
       });
     };
