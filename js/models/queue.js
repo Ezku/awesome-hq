@@ -3,47 +3,59 @@
 
 // Rx's missing golden operator
 function withLatest(A$, B$, combineFunc) {
-	var hotA$ = A$.publish().refCount();
-	return B$
-		.map(function (b) {
-			return hotA$.map(function (a) { return combineFunc(a, b); });
-		})
-		.switch();
+  var hotA$ = A$.publish().refCount();
+  return B$
+    .map(function (b) {
+      return hotA$.map(function (a) { return combineFunc(a, b); });
+    })
+    .switch();
 }
 
 var QueueModel = Cycle.createModel(function (intent, initial) {
 
-	var addToQueueMod$ = intent.get('addToQueue$').map(function(name) {
-		return function (peopleData) {
-			peopleData.queue.push(name);
-			return peopleData;
-		};
-	});
+  var addToQueueMod$ = intent.get('addToQueue$').map(function(name) {
+    return function (peopleData) {
+      peopleData.queue.push(name);
+      return peopleData;
+    };
+  });
 
-	var removeFromQueueMod$ = intent.get('removeFromQueue$').map(function(name) {
-		return function (peopleData) {
-			var queue = [];
-			for (var i in peopleData.queue) {
-				if (peopleData.queue[i] !== name) {
-					queue.push(peopleData.queue[i]);
-				}
-			}
-			peopleData.queue = queue;
-			return peopleData;
-		};
-	});
+  var removeFromQueueMod$ = intent.get('removeFromQueue$').map(function(name) {
+    return function (peopleData) {
+      var queue = [];
+      for (var i in peopleData.queue) {
+        if (peopleData.queue[i] !== name) {
+          queue.push(peopleData.queue[i]);
+        }
+      }
+      peopleData.queue = queue;
+      return peopleData;
+    };
+  });
 
-	var modifications$ = Rx.Observable.merge(
-		addToQueueMod$,
-		removeFromQueueMod$
-	);
+  var incrementWeightMod$ = intent.get('addToQueue$').map(function(name) {
+    return function (peopleData) {
+      if (!peopleData.weights[name]) {
+        peopleData.weights[name] = 1;
+      } else {
+        peopleData.weights[name]++;
+      }
+      return peopleData;
+    };
+  })
 
-	return {
-		people$: modifications$
-			.merge(initial.get('peopleData$'))
-			.scan(function (data, modification) {
-				return modification(data);
-			})
-			.publish().refCount()
-	}
+  var modifications$ = Rx.Observable.merge(
+    addToQueueMod$,
+    removeFromQueueMod$,
+    incrementWeightMod$
+  );
+
+  return {
+    people$: modifications$
+      .merge(initial.get('peopleData$'))
+      .scan(function (data, modification) {
+        return modification(data);
+      })
+      .publish().refCount()
+  }
 });
