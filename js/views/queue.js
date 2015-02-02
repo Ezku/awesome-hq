@@ -14,16 +14,26 @@ function vrenderQueuedPerson(name) {
     h('button.button-primary', {
       attributes: {'data-name': name},
       onclick: 'removeFromQueue$'
-    }, name)
+    }, [
+      h('i.fa.fa-chevron-left'),
+      ' ',
+      name
+    ])
   ]);
 }
 
 function vrenderListPerson(name) {
   return h('li', [
     h('button', {
-      attributes: {'data-name': name},
+      attributes: {
+        'data-name': name
+      },
       onclick: 'addToQueue$'
-    }, name)
+    }, [
+      name,
+      ' ',
+      h('i.fa.fa-chevron-right')
+    ])
   ]);
 }
 
