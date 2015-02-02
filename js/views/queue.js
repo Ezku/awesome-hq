@@ -58,10 +58,7 @@ function vrenderListPerson(name) {
   ]);
 }
 
-function vrenderList(people) {
-  var unqueued = people.get('list').filter(function(person) {
-    return !people.get('queue').contains(person);
-  });
+function vrenderList(unqueued) {
   return h('div#unqueued.one-half.column', [
     h('h3', 'People'),
     h('ul', {
@@ -72,8 +69,7 @@ function vrenderList(people) {
   ]);
 }
 
-function vrenderQueue(people) {
-  var queue = people.get('queue');
+function vrenderQueue(queue) {
   return h('div#queued.one-half.column', [
     h('h3', 'Waiting'),
     h('ul', {
@@ -86,15 +82,18 @@ function vrenderQueue(people) {
 
 var QueueView = Cycle.createView(function (model) {
   return {
-    vtree$: model.get('people$')
-      .map(function (people) {
+    vtree$: Rx.Observable.zip(
+      model.get('unqueued$'),
+      model.get('queued$'),
+      function (unqueued, queued) {
         return h('div.container', [
-          vrenderHeader(people),
+          vrenderHeader(),
           h('section#main.row', [
-            vrenderList(people),
-            vrenderQueue(people)
+            vrenderList(unqueued),
+            vrenderQueue(queued)
           ])
         ]);
-      })
-  }
+      }
+    )
+  };
 });

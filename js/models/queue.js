@@ -1,16 +1,6 @@
 'use strict';
 /*global Cycle */
 
-// Rx's missing golden operator
-function withLatest(A$, B$, combineFunc) {
-  var hotA$ = A$.publish().refCount();
-  return B$
-    .map(function (b) {
-      return hotA$.map(function (a) { return combineFunc(a, b); });
-    })
-    .switch();
-}
-
 var QueueModel = Cycle.createModel(function (intent, initial) {
 
   var addToQueueMod$ = intent.get('addToQueue$').map(function(name) {
@@ -47,12 +37,26 @@ var QueueModel = Cycle.createModel(function (intent, initial) {
     incrementWeightMod$
   );
 
+  var people$ = modifications$
+    .merge(initial.get('peopleData$'))
+    .scan(function (data, modification) {
+      return modification(data);
+    })
+    .publish().refCount();
+
   return {
-    people$: modifications$
-      .merge(initial.get('peopleData$'))
-      .scan(function (data, modification) {
-        return modification(data);
-      })
-      .publish().refCount()
+    people$: people$,
+    unqueued$: people$.map(function(people) {
+      return people.get('list')
+        .filter(function(person) {
+          return !people.get('queue').contains(person);
+        })
+        .sortBy(function(person) {
+          return -people.getIn(['weights', person], -1);
+        });
+    }),
+    queued$: people$.map(function(people) {
+      return people.get('queue');
+    })
   }
 });
