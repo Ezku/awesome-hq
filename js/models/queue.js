@@ -15,32 +15,29 @@ var QueueModel = Cycle.createModel(function (intent, initial) {
 
   var addToQueueMod$ = intent.get('addToQueue$').map(function(name) {
     return function (peopleData) {
-      peopleData.queue.push(name);
-      return peopleData;
+      return peopleData.update('queue', function(queue) {
+        return queue.push(name);
+      });
     };
   });
 
   var removeFromQueueMod$ = intent.get('removeFromQueue$').map(function(name) {
     return function (peopleData) {
-      var queue = [];
-      for (var i in peopleData.queue) {
-        if (peopleData.queue[i] !== name) {
-          queue.push(peopleData.queue[i]);
-        }
-      }
-      peopleData.queue = queue;
-      return peopleData;
+      return peopleData.update('queue', function(queue) {
+        return queue.filterNot(function(queued) {
+          return name == queued;
+        });
+      });
     };
   });
 
   var incrementWeightMod$ = intent.get('addToQueue$').map(function(name) {
     return function (peopleData) {
-      if (!peopleData.weights[name]) {
-        peopleData.weights[name] = 1;
-      } else {
-        peopleData.weights[name]++;
-      }
-      return peopleData;
+      return peopleData.update('weights', function(weights) {
+        return weights.update(name, 1, function(weight) {
+          return weight + 1;
+        });
+      });
     };
   })
 

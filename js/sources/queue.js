@@ -43,5 +43,7 @@ var storedQueueData = JSON.parse(localStorage.getItem('awesome-human-queue')) ||
 var initialQueueData = merge(defaultQueueData, storedQueueData);
 
 var TodosModelSource = Cycle.createDataFlowSource({
-  peopleData$: Rx.Observable.just(initialQueueData)
+  peopleData$: Rx.Observable.just(initialQueueData).map(function(data) {
+    return Immutable.fromJS(data);
+  })
 });

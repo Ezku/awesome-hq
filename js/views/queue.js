@@ -59,26 +59,27 @@ function vrenderListPerson(name) {
 }
 
 function vrenderList(people) {
-  var unqueued = people.list.filter(function(person) {
-    return people.queue.indexOf(person) === -1
+  var unqueued = people.get('list').filter(function(person) {
+    return !people.get('queue').contains(person);
   });
   return h('div#unqueued.one-half.column', [
     h('h3', 'People'),
     h('ul', {
-        style: {'display': unqueued.length ? '' : 'none'}
+        style: {'display': unqueued.size ? '' : 'none'}
       },
-      unqueued.map(vrenderListPerson)
+      unqueued.map(vrenderListPerson).toJS()
     )
   ]);
 }
 
 function vrenderQueue(people) {
+  var queue = people.get('queue');
   return h('div#queued.one-half.column', [
     h('h3', 'Waiting'),
     h('ul', {
-        style: {'display': people.queue.length ? '' : 'none'}
+        style: {'display': queue.size ? '' : 'none'}
       },
-      people.queue.map(vrenderQueuedPerson)
+      queue.map(vrenderQueuedPerson).toJS()
     )
   ]);
 }
