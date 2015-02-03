@@ -34,7 +34,7 @@ var QueueModel = Cycle.createModel(function (intent, initial) {
         });
       });
     };
-  })
+  });
 
   var modifications$ = Rx.Observable.merge(
     addToQueueMod$,
