@@ -18,10 +18,19 @@
 <section id="queueapp"></section>
 
 <script src="bower_components/cycle/dist/cycle.js"></script>
+<script type="application/javascript">var Rx = Cycle.Rx;</script>
+
 <script src="bower_components/immutable/dist/immutable.js"></script>
 <script src="bower_components/string_to_color/string_to_color.js"></script>
 <script src="bower_components/color/color-0.7.1.js"></script>
-<script type="application/javascript">var Rx = Cycle.Rx;</script>
+
+<script src="bower_components/fastclick/lib/fastclick.js"></script>
+<script type="application/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+  FastClick.attach(document.body);
+}, false);
+</script>
+
 <script src="js/sources/queue.js"></script>
 <script src="js/models/queue.js"></script>
 <script src="js/views/queue.js"></script>
