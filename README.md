@@ -1,8 +1,5 @@
-TodoMVC in Cycle.js
+Awesome Human Queue with [Cycle.js](https://github.com/staltz/cycle)
 ===================
 
-TodoMVC example implemented in [Cycle.js](https://github.com/staltz/cycle).
-
-[Open the app](http://staltz.com/todomvc-cycle)
-
+Forked from [TodoMVC](http://staltz.com/todomvc-cycle).
 

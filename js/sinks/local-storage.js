@@ -1,18 +1,13 @@
 'use strict';
 /*global Cycle */
 
-var LocalStorageSink = Cycle.createDataFlowSink(function (todosModel) {
-	// Observe all todos data and save them to localStorage
-	return todosModel.get('todos$').subscribe(function (todosData) {
-		var savedTodosData = {
-			list: todosData.list.map(function (todoData) {
-				return {
-					title: todoData.title,
-					completed: todoData.completed,
-					index: todoData.index
-				};
-			})
-		};
-		localStorage.setItem('todos-cycle', JSON.stringify(savedTodosData))
-	});
+var LocalStorageSink = Cycle.createDataFlowSink(function (queueModel) {
+  // Observe all todos data and save them to localStorage
+  return queueModel.get('people$')
+    .map(function(people) {
+      return people.toJS();
+    })
+    .subscribe(function (people) {
+      localStorage.setItem('awesome-human-queue', JSON.stringify(people));
+    });
 });

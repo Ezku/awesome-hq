@@ -1,8 +1,13 @@
 {
-  "name": "todomvc-cycle",
+  "name": "awesome-tq",
   "version": "0.0.0",
   "dependencies": {
     "cycle": "0.8.1",
-    "todomvc-common": "~0.3.0"
+    "todomvc-common": "~0.3.0",
+    "skeleton": "~2.0.4",
+    "string_to_color": "brandoncorbin/string_to_color",
+    "color": "harthur/color#gh-pages",
+    "fontawesome": "~4.3.0",
+    "immutable": "~3.6.2"
   }
 }

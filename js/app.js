@@ -1,8 +1,8 @@
 'use strict';
 /*global Cycle */
 
-Cycle.createRenderer('#todoapp').inject(TodosView);
-LocalStorageSink.inject(TodosModel);
-TodosIntent.inject(TodosView);
-TodosView.inject(TodosModel);
-TodosModel.inject(TodosIntent, TodosModelSource);
+Cycle.createRenderer('#queueapp').inject(QueueView);
+LocalStorageSink.inject(QueueModel);
+QueueIntent.inject(QueueView);
+QueueView.inject(QueueModel);
+QueueModel.inject(QueueIntent, TodosModelSource);
