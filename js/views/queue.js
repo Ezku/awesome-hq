@@ -14,7 +14,8 @@ function vrenderQueuedPerson(name) {
     h('button.button-primary', {
       attributes: {'data-name': name},
       style: nameToUniquePrimaryStyle(name),
-      onclick: 'removeFromQueue$'
+      onclick: 'removeFromQueue$',
+      ontouchstart: 'removeFromQueue$'
     }, [
       h('i.fa.fa-chevron-left'),
       ' ',
@@ -49,7 +50,8 @@ function vrenderListPerson(name) {
         'data-name': name
       },
       style: nameToUniqueBasicStyle(name),
-      onclick: 'addToQueue$'
+      onclick: 'addToQueue$',
+      ontouchstart: 'addToQueue$'
     }, [
       name,
       ' ',
