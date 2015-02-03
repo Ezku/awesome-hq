@@ -18,9 +18,11 @@ function nameFromNearestAncestor(element) {
 var QueueIntent = Cycle.createIntent(function (view) {
   return {
     addToQueue$: view.get('addToQueue$').map(function(event) {
+      event.preventDefault();
       return nameFromNearestAncestor(event.target);
     }),
     removeFromQueue$: view.get('removeFromQueue$').map(function(event) {
+      event.preventDefault();
       return nameFromNearestAncestor(event.target);
     })
   }
