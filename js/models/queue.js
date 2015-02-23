@@ -62,6 +62,12 @@ var QueueModel = Cycle.createModel(function (intent, initial) {
     }),
     queued$: people$.map(function(people) {
       return people.get('queue');
+    }),
+    scrollLocation$: intent.get('addToQueue$').map(function() {
+      return {
+        x: 0,
+        y: 0
+      };
     })
   }
 });
