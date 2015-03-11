@@ -1,12 +1,13 @@
 'use strict';
 /*global Cycle */
+/** @jsx Cycle.h */
 
 var h = Cycle.h;
 
 function vrenderHeader(people) {
-  return h('header#header', [
-    h('h1', 'Awesome Human Queue')
-  ]);
+  return <header id="header">
+    <h1>Awesome Human Queue</h1>
+  </header>
 }
 
 function vrenderQueuedPerson(name) {
