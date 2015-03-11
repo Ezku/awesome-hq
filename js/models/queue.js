@@ -71,3 +71,5 @@ var QueueModel = Cycle.createModel(function (intent, initial) {
     })
   }
 });
+
+module.exports = QueueModel

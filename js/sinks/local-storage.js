@@ -11,3 +11,5 @@ var LocalStorageSink = Cycle.createDataFlowSink(function (queueModel) {
       localStorage.setItem('awesome-human-queue', JSON.stringify(people));
     });
 });
+
+module.exports = LocalStorageSink

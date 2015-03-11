@@ -8,3 +8,5 @@ var ScrollLocationSink = Cycle.createDataFlowSink(function (queueModel) {
       window.scrollTo(location.x, location.y);
     });
 });
+
+module.exports = ScrollLocationSink

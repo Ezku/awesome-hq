@@ -27,3 +27,5 @@ var QueueIntent = Cycle.createIntent(function (view) {
     })
   }
 });
+
+module.exports = QueueIntent

@@ -97,3 +97,5 @@ var QueueView = Cycle.createView(function (model) {
     )
   };
 });
+
+module.exports = QueueView
