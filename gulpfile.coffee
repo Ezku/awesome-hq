@@ -1,11 +1,22 @@
+require('dotenv').load()
+
 gulp = require 'gulp'
 babelify = require 'babelify'
 browserify = require 'browserify'
 source = require 'vinyl-source-stream'
+flow = require 'gulp-flowtype'
 
 gulp.task 'default', [
   'build'
 ]
+
+gulp.task 'flow', ->
+  gulp.src('./js/**/*.js')
+    .pipe(flow {
+      all: true
+      weak: true
+      abort: false
+    })
 
 gulp.task 'build', ->
   browserify(

@@ -8,8 +8,10 @@
     "babelify": "^5.0.4",
     "browserify": "^9.0.3",
     "coffee-script": "^1.9.1",
+    "dotenv": "^0.5.1",
     "gulp": "^3.8.11",
     "gulp-babel": "^4.0.0",
+    "gulp-flowtype": "^0.4.5",
     "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {

@@ -1,0 +1,10 @@
+[ignore]
+.*/bower_components
+.*/node_modules
+
+[include]
+.*/js
+
+[libs]
+
+[options]
