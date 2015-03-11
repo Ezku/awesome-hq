@@ -6,5 +6,6 @@
 .*/js
 
 [libs]
+.*/js/interfaces
 
 [options]

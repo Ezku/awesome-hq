@@ -1,12 +1,11 @@
-'use strict';
-/*global Cycle */
+/* @flow */
 
-var QueueModelSource = require('./sources/queue')
-var QueueModel = require('./models/queue')
-var QueueView = require('./views/queue')
-var QueueIntent = require('./intents/queue')
-var LocalStorageSink = require('./sinks/local-storage')
-var ScrollLocationSink = require('./sinks/scroll-location')
+var QueueModelSource: Injectable = require('./sources/queue')
+var QueueModel: Injectable = require('./models/queue')
+var QueueView: Injectable = require('./views/queue')
+var QueueIntent: Injectable = require('./intents/queue')
+var LocalStorageSink: Injectable = require('./sinks/local-storage')
+var ScrollLocationSink: Injectable = require('./sinks/scroll-location')
 
 Cycle.createRenderer('#queueapp').inject(QueueView);
 LocalStorageSink.inject(QueueModel);

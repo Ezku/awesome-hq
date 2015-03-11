@@ -1,5 +1,4 @@
-'use strict';
-/*global Cycle */
+/* @flow */
 
 function nameFromNearestAncestor(element) {
   if (element.dataset.name) {
