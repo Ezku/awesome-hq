@@ -1,2 +1,4 @@
 .idea/
 ignore/
+/dist
+/node_modules

@@ -1,0 +1,35 @@
+{
+  "name": "awesome-hq",
+  "version": "1.0.0",
+  "description": "the awesome human queue app",
+  "main": "dist/awesome-hq.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babelify": "^5.0.4",
+    "browserify": "^9.0.3",
+    "coffee-script": "^1.9.1",
+    "gulp": "^3.8.11",
+    "gulp-babel": "^4.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ezku/awesome-hq.git"
+  },
+  "keywords": [
+    "es6",
+    "babel",
+    "rx",
+    "virtual-dom",
+    "app"
+  ],
+  "author": "Eevert Saukkokoski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ezku/awesome-hq/issues"
+  },
+  "homepage": "https://github.com/Ezku/awesome-hq"
+}
