@@ -1,3 +1,5 @@
+require('dotenv').load()
+
 gulp = require 'gulp'
 babelify = require 'babelify'
 browserify = require 'browserify'
